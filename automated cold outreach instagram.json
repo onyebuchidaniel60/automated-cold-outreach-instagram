@@ -1,0 +1,1021 @@
+{
+  "name": "automated cold outreach instagram Ismail",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6f23067a-3c19-4152-805e-c31b2fb7c6fb",
+              "leftValue": "={{ $json.body.instagramKeywords }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1424,
+        272
+      ],
+      "id": "0cff5988-741e-4b23-8eba-6194568876fa",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "batchSize": 15,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -432,
+        256
+      ],
+      "id": "bdace087-72b4-4e3e-a5f5-83d040e65f87",
+      "name": "Loop Over Items",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "amount": 150
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2512,
+        272
+      ],
+      "id": "8f71713d-d284-4e36-a5a6-8cd8fd0a1031",
+      "name": "Wait",
+      "webhookId": "4b222821-e1d1-4c57-8863-f4741de01091"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "subject",
+              "description": "subject of the email",
+              "required": true
+            },
+            {
+              "name": "body",
+              "description": "body of the email",
+              "required": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        272
+      ],
+      "id": "c21b2261-5a94-496f-ab53-a7ea499ca0a0",
+      "name": "Information Extractor",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cea70372-5349-4a6f-ad8f-60cce6d79f7d",
+              "name": "Account",
+              "value": "={{ $('Loop Over Items').item.json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "68c84665-1add-40cd-a3eb-5ad6f35c09fb",
+              "name": "Name",
+              "value": "={{ $('Loop Over Items').item.json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "b0fc7c42-f8a7-4e54-bdf0-ec50f294c8e3",
+              "name": "Email Address",
+              "value": "={{ $('Loop Over Items').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "e1cffd4d-7a6b-4525-926a-7eefbb631987",
+              "name": "Biography",
+              "value": "={{ $('Loop Over Items').item.json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "9f569698-6b5e-4443-a4b7-b05e4b291e66",
+              "name": "Subject of Email",
+              "value": "={{ $('Information Extractor').item.json.output.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "77fe9afd-3c7a-4ed0-9894-04b24e0ae590",
+              "name": "Body of Email",
+              "value": "={{ $('Information Extractor').item.json.output.body }}",
+              "type": "string"
+            },
+            {
+              "id": "3c8d8a4e-7bc9-4b2b-9cee-b237fdb939d6",
+              "name": "Status",
+              "value": "={{ $json.labelIds[0] }}",
+              "type": "string"
+            },
+            {
+              "id": "401742be-34ba-4978-9d1a-3a324acbd3a6",
+              "name": "Email Sender",
+              "value": "={{ $('Edit Fields').item.json['email sender'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2752,
+        576
+      ],
+      "id": "ab424309-185e-4d5a-a77c-624ffcb5f5e3",
+      "name": "Edit Fields1",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1CDDeL4WURUycXECn51GAlulz6fkKBPS8PS6Uro9eL5g",
+          "mode": "list",
+          "cachedResultName": "Outreach data instagram ismail",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CDDeL4WURUycXECn51GAlulz6fkKBPS8PS6Uro9eL5g/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Blad1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CaTgdWe1e_uBGbJA2JWbLADF55vmJT5fPXZ0wwtpr3I/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Email Address": "={{ $json['Email Address'] }}",
+            "Biography": "={{ $json.Biography }}",
+            "Subject of Email": "={{ $json['Subject of Email'] }}",
+            "Body of Email": "={{ $json['Body of Email'] }}",
+            "Status": "={{ $json.Status }}",
+            "Email Sender": "={{ $json['Email Sender'] }}",
+            "Account": "={{ $json.Account }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Account",
+              "displayName": "Account",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email Address",
+              "displayName": "Email Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Biography",
+              "displayName": "Biography",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Subject of Email",
+              "displayName": "Subject of Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Body of Email",
+              "displayName": "Body of Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email Sender",
+              "displayName": "Email Sender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a74b7524-c419-4cd7-b2de-2dc917605925",
+      "name": "Add data to instagram sheet",
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "twyhvKjDcfNqYilX",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/chatgpt-4o-latest",
+        "options": {
+          "maxTokens": -1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2800,
+        1056
+      ],
+      "id": "c92a105e-9130-465e-b399-f25aa28e0df4",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "xUweSyQHc1BTXKnb",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d26cf740-9298-4159-874f-aa33956a7394",
+              "name": "keywords",
+              "value": "={{ $json.body.instagramKeywords.split(',').map(item => item.trim()).filter(item => item.length > 0) }}",
+              "type": "string"
+            },
+            {
+              "id": "7d5e63fb-db16-45f9-ad39-289c6ae44097",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1152,
+        256
+      ],
+      "id": "a63af5d2-9a8f-4e85-99e6-0a5a8518068a",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here's the summary {{ $json.answer }}",
+        "options": {
+          "systemMessage": "=You receive a brief summary about a lead (may include a first name, interests, and fitness info).\n\nWrite an email subject and email body in a friendly, casual tone that follows this example structure:\n\nHey brother,\nCame across your profile and wanted to reach out real quick.\nI’m Ismail — I work with guys who are serious about improving their physique, strength, and discipline, not just doing random workouts with no direction.\nQuick question for you:\nAre you currently training with a clear plan, or are you kind of winging it right now?\nMost people I speak to are:\nTraining hard but not seeing the results they want\nStuck with plateaus or inconsistent progress\nLacking structure, accountability, or proper programming\nIf that sounds even a little familiar, I’d be happy to jump on a quick call and see if I can actually help you.\nNo pressure — just a short intro call to look at your goals and see if coaching makes sense for you.\nYou can book a call here if you’re interested:  \n👉 https://calendly.com/ismaild424/introductory-call\nEither way, keep pushing and respect for putting in the work.\n– Ismail\n\nConditional greeting rule:\nIf a name is provided, address them by name (e.g., “Hey Fred,” “Hi Sarah,” etc.).\nIf no name is provided, start with a natural generic greeting (e.g., “Hey,” “Hi,” etc.) without a name.\n\nUse the template text itself to infer the type of audience and service the coach offers, then craft the email’s body to match that inferred niche and tone, rather than having the niche described outright.\n\nExplain how the coach can help the lead toward their fitness goals in a genuine, non‑pushy way, matching the tone and flow of the example template.\n\nAlways include the Calendly link inviting them to book a call:\n https://calendly.com/ismaild424/introductory-call\n\nSign the email at the end exactly like this:\n– Ismail\n\nOutput exactly in this format:\n\nSubject: <subject line>\nBody: <email body>\n\nKeep the email body to exactly 5 short lines, spaced with double new lines."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        352,
+        272
+      ],
+      "id": "8f5cc800-12fc-4b6d-b7e5-dd2c2dd9b37f",
+      "name": "Write email",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorSource": "store",
+        "actorId": {
+          "__rl": true,
+          "value": "4bYhKqb1HakSE4nbL",
+          "mode": "list",
+          "cachedResultName": "Best Instagram Email Scraper (scraper-mind/best-instagram-email-scraper)",
+          "cachedResultUrl": "https://console.apify.com/actors/4bYhKqb1HakSE4nbL/input"
+        },
+        "customBody": "={\n    \"keywords\": {{ $json.keywords }},\n    \"emailType\": \"B2C\",\n    \"maxEmails\": 150\n}"
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        256
+      ],
+      "id": "ced61871-d522-4dba-bbfb-dadff5d25f50",
+      "name": "scrape instagram leads",
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "apifyApi": {
+          "id": "aKiissAMhPe4WNEQ",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "query": "=Find information about this person:  {{ $json.title }} Their bio on instagram is:  {{ $json.description }} Look for recent things about them",
+        "options": {
+          "topic": "general",
+          "search_depth": "basic",
+          "include_answer": "advanced"
+        }
+      },
+      "type": "@tavily/n8n-nodes-tavily.tavily",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        272
+      ],
+      "id": "968e6e67-050a-4379-a50e-4adc0e0c82e7",
+      "name": "Search",
+      "executeOnce": false,
+      "retryOnFail": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "tavilyApi": {
+          "id": "FHLbrPiWp20f3MWb",
+          "name": "Tavily account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "={{ $json.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body }}",
+        "options": {
+          "appendAttribution": false,
+          "ccList": "ismailbusiness424@gmail.com",
+          "senderName": "Ismail "
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1952,
+        64
+      ],
+      "id": "e149e5d5-649d-4fb0-9506-f3c7c4039970",
+      "name": "Email Sender",
+      "webhookId": "efe7ad3f-01c3-41eb-af9c-b59486ee4fb7",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "lo2CCWyCijvYBgmv",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d55bcad5-452e-46d0-84ca-2de747ef22df",
+              "name": "email sender",
+              "value": "={{ ['decloglabs@gmail.com', 'Lucas.premat@gmail.com', 'vault2451@gmail.com'].randomItem() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        272
+      ],
+      "id": "6b6e94b2-9e6b-4559-b770-f7c4ac410396",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json['email sender'] }}",
+                    "rightValue": "decloglabs@gmail.com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c170cb12-7757-4be6-b0d0-2e57504d515d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "decloglabs@gmail.com"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "db207b44-32e2-41b0-b9e9-a656ebf61384",
+                    "leftValue": "={{ $json['email sender'] }}",
+                    "rightValue": "Lucas.premat@gmail.com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Lucas.premat@gmail.com"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a2e1a641-8223-4114-ad65-820da1d00678",
+                    "leftValue": "={{ $json['email sender'] }}",
+                    "rightValue": "vault2451@gmail.com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "vault2451@gmail.com"
+            }
+          ]
+        },
+        "options": {
+          "allMatchingOutputs": true
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1264,
+        256
+      ],
+      "id": "732ef9fd-ae75-4667-93d5-561e09a31056",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "={{ $json.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body }}",
+        "options": {
+          "appendAttribution": false,
+          "ccList": "ismailbusiness424@gmail.com",
+          "senderName": "Ismail"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1952,
+        272
+      ],
+      "id": "ea03e58f-5682-4053-8ca9-b13b64c51dff",
+      "name": "Send a message",
+      "webhookId": "934e2971-7609-4318-91b0-45c9d1e48e9c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "StKNHM65h7bWM7xc",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "={{ $json.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body }}",
+        "options": {
+          "appendAttribution": false,
+          "ccList": "ismailbusiness424@gmail.com",
+          "senderName": "Ismail"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1952,
+        464
+      ],
+      "id": "8e0c1dd7-b256-43dd-b98e-8aa4e8f8522e",
+      "name": "Send a message1",
+      "webhookId": "625d0a46-522e-4b76-98cf-cb3ededf9ece",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xQXWarb3xpOzT5sV",
+          "name": "Gmail account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6b8f4e7b-1302-436f-a28c-b9cf33a77c0f",
+              "name": "subject",
+              "value": "={{ $('Information Extractor').item.json.output.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "846fc789-bfe8-4963-9db3-a998081cd6b5",
+              "name": "body",
+              "value": "={{ $('Information Extractor').item.json.output.body }}",
+              "type": "string"
+            },
+            {
+              "id": "c220b271-a97f-496c-bbaf-782d6e4e9ac6",
+              "name": "email",
+              "value": "={{ $('Loop Over Items').item.json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1584,
+        64
+      ],
+      "id": "2dc3101c-0f5d-4150-ae43-fa22107c994d",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6b8f4e7b-1302-436f-a28c-b9cf33a77c0f",
+              "name": "subject",
+              "value": "={{ $('Information Extractor').item.json.output.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "846fc789-bfe8-4963-9db3-a998081cd6b5",
+              "name": "body",
+              "value": "={{ $('Information Extractor').item.json.output.body }}",
+              "type": "string"
+            },
+            {
+              "id": "604c3910-ed50-420b-a254-6bbb688ac4b4",
+              "name": "email",
+              "value": "={{ $('Loop Over Items').item.json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1584,
+        272
+      ],
+      "id": "072c3e5e-1bd0-46d7-822f-1dbf82c0fa31",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6b8f4e7b-1302-436f-a28c-b9cf33a77c0f",
+              "name": "subject",
+              "value": "={{ $('Information Extractor').item.json.output.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "846fc789-bfe8-4963-9db3-a998081cd6b5",
+              "name": "body",
+              "value": "={{ $('Information Extractor').item.json.output.body }}",
+              "type": "string"
+            },
+            {
+              "id": "3ba43d26-aa29-40d2-8f74-382260a139c8",
+              "name": "email",
+              "value": "={{ $('Loop Over Items').item.json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1600,
+        464
+      ],
+      "id": "31ab2b37-b362-4da6-864f-38b5462698c7",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2320,
+        256
+      ],
+      "id": "5bc16a46-bc7a-4062-9ddd-b44c585a8372",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "bfec8309-c24b-4516-b750-3d728c1ad102",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1632,
+        272
+      ],
+      "id": "d5c254b5-0e00-4546-897a-f2d8f42c69de",
+      "name": "Webhook",
+      "webhookId": "bfec8309-c24b-4516-b750-3d728c1ad102"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Add data to instagram sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write email",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "scrape instagram leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write email": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "scrape instagram leads": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search": {
+      "main": [
+        [
+          {
+            "node": "Write email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Sender": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Email Sender",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0994e2a4-e785-4533-86b4-677afdf48b16",
+  "meta": {
+    "instanceId": "72830bf432026c6e2413b0d51581a1166b5a9283b21862c2057ffdeb236dd2bf"
+  },
+  "id": "ZCHoocu06B0acSjS",
+  "tags": []
+}
